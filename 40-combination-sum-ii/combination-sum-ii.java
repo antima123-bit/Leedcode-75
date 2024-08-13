@@ -9,7 +9,6 @@ class Solution {
     }
 
     private void backtrack(int[] candidates, int target, int start, List<Integer> current, List<List<Integer>> result) {
-        // If target is 0, we've found a valid combination
         if (target == 0) {
             result.add(new ArrayList<>(current));  // Add a copy of current to the result
             return;
