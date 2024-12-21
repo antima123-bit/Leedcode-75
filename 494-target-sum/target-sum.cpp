@@ -4,11 +4,11 @@ class Solution {
     const int sum = accumulate(n.begin(), n.end(), 0);
     if (sum < abs(tar) || (sum + tar) % 2 == 1)
       return 0;
-    return knapsack(n, (sum + tar) / 2);
+    return kp(n, (sum + tar) / 2);
   }
 
  private:
-  int knapsack(const vector<int>& n, int tar) {
+  int kp(const vector<int>& n, int tar) {
     const int u= n.size();
     vector<vector<int>> dp(u + 1, vector<int>(tar + 1));
     dp[0][0] = 1;
