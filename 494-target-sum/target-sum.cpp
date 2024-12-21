@@ -1,28 +1,27 @@
 class Solution {
  public:
-  int findTargetSumWays(vector<int>& nums, int target) {
-    const int sum = accumulate(nums.begin(), nums.end(), 0);
-    if (sum < abs(target) || (sum + target) % 2 == 1)
+  int findTargetSumWays(vector<int>& n, int tar) {
+    const int sum = accumulate(n.begin(), n.end(), 0);
+    if (sum < abs(tar) || (sum + tar) % 2 == 1)
       return 0;
-    return knapsack(nums, (sum + target) / 2);
+    return knapsack(n, (sum + tar) / 2);
   }
 
  private:
-  int knapsack(const vector<int>& nums, int target) {
-    const int n = nums.size();
-    // dp[i][j] := the number of ways to sum to j by nums[0..i)
-    vector<vector<int>> dp(n + 1, vector<int>(target + 1));
+  int knapsack(const vector<int>& n, int tar) {
+    const int u= n.size();
+    vector<vector<int>> dp(u + 1, vector<int>(tar + 1));
     dp[0][0] = 1;
 
-    for (int i = 1; i <= n; ++i) {
-      const int num = nums[i - 1];
-      for (int j = 0; j <= target; ++j)
+    for (int i = 1; i <= u; ++i) {
+      const int num = n[i - 1];
+      for (int j = 0; j <= tar; ++j)
         if (j < num)
           dp[i][j] = dp[i - 1][j];
         else
           dp[i][j] = dp[i - 1][j] + dp[i - 1][j - num];
     }
 
-    return dp[n][target];
+    return dp[u][tar];
   }
 };
