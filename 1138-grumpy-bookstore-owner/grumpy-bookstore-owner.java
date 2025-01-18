@@ -22,7 +22,7 @@ class Solution {
             }
             if(i >= minutes){
                 if(grumpy[i-minutes] == 1 ){
-                    gain -= customers[i-minutes];
+                    gain = gain -  customers[i-minutes];
                 }
             }
             maxGain = Math.max(maxGain, gain);
