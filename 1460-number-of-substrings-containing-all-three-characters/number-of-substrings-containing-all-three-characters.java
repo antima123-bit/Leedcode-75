@@ -4,8 +4,7 @@ public class Solution {
         int left = 0, result = 0, n = s.length();
 
         for (int right = 0 ; right<n ; right++) {
-            count[s.charAt(right) - 'a']++;
-
+count[s.charAt(right) - 'a']++ ;
             while (count[0] > 0 && count[1] > 0 && count[2] > 0) {
                 result += n - right;
                 count[s.charAt(left) - 'a']--;
