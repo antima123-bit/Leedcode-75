@@ -1,17 +1,27 @@
-public class Solution {
+class Solution {
     public int numberOfSubstrings(String s) {
-        int[] count = new int[3];
-        int left = 0, result = 0, n = s.length();
-
-        for (int right = 0 ; right<n ; right++) {
-        count[s.charAt(right) - 'a']++ ;
-            while (count[0]>0 && count[1] > 0 && count[2] > 0){
-                result += n - right;
-                count[s.charAt(left) - 'a']--;
-                left++;
+        int a = -1, b = -1, c = -1;
+        
+        char[] arr = s.toCharArray();
+        
+        int count = 0;
+        
+        for (int i = 0; i < arr.length; i++) {
+            int min = -1;
+            
+            if (arr[i] == 'a') {
+                min = Math.min(b, c); 
+                a = i; 
+            } else if (arr[i] == 'b') {
+                min = Math.min(a, c); 
+                b = i;
+            } else {
+                min = Math.min(a, b); 
+                c = i;
             }
+                        count = (min == -1) ? count : count + min + 1;
         }
-
-        return result;
+        
+        return count;
     }
 }
