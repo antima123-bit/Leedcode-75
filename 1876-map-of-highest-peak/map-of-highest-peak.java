@@ -1,44 +1,45 @@
 class Solution {
     public int[][] highestPeak(int[][] isWater) {
-        int m=isWater.length;
-        int n=isWater[0].length;
-
-        int[][] matrix=new int[m][n];
-
-        Queue<int[]> que=new LinkedList<>();
-
-
-        for(int i=0; i<m; i++){
-            for(int j=0; j<n; j++){
-                if(isWater[i][j]==1){
-                    que.add(new int[]{i,j});
-                }
-                else{
-                    matrix[i][j]=-1;
+        // Initialize direction array
+        int dir[][] = {{-1,0}, {0,-1}, {1,0}, {0,1}};
+        int n = isWater.length;
+        int m = isWater[0].length;
+        int res[][] = new int[n][m];
+        
+        // Initialize the queue
+        Queue<int[]> queue = new LinkedList<>();
+        
+        // Iterate through the matrix
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                // Check if the cell is water
+                if (isWater[i][j] == 1) {
+                    // Set height of water cell to 0
+                    res[i][j] = 0;
+                    queue.offer(new int[]{i, j});
+                } else {
+                    // Set height of land cell to -1 initially
+                    res[i][j] = -1;
                 }
             }
         }
-
-
-        int[][] directions={ {0,1}, {0,-1}, {1,0}, {-1,0} };
-
-        while(!que.isEmpty()){
-            int[] arr=que.poll();
-            int r=arr[0];
-            int c=arr[1];
-
-            for(int[] dir:directions){
-                int nr=r+dir[0];
-                int nc=c+dir[1];
-
-                if(nr>=0 && nr<m && nc>=0 && nc<n && matrix[nr][nc]==-1){
-                    matrix[nr][nc]=matrix[r][c]+1;  
-
-                    que.add(new int[]{nr,nc});      
-                } 
+        
+        // Perform BFS
+        while (!queue.isEmpty()) {
+            int cell[] = queue.poll();
+            int r = cell[0];
+            int c = cell[1];
+            int h = res[r][c];
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dir[i][0];
+                int nc = c + dir[i][1];
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m && res[nr][nc] == -1) {
+                    res[nr][nc] = h + 1;
+                    queue.offer(new int[]{nr, nc});
+                }
             }
         }
-
-        return matrix;
+        
+        return res;
     }
 }
