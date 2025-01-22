@@ -1,35 +1,46 @@
-class Solution {
+public class Solution {
     public String minWindow(String s, String t) {
-        if (s == null || t == null || s.length() == 0 || t.length() == 0 ||
-                s.length() < t.length()) {
-            return new String();
+        if (t.length() > s.length()) {
+            return ""; 
         }
-        int[] map = new int[128];
-        int count = t.length();
-        int start = 0, end = 0, minLen = Integer.MAX_VALUE, startIndex = 0;
-        /// UPVOTE !
+
+        Map<Character, Integer> charCount = new HashMap<>();
         for (char c : t.toCharArray()) {
-            map[c]++;
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
         }
 
-        char[] chS = s.toCharArray();
+        int left = 0; 
+        int minLength = Integer.MAX_VALUE;
+        int minStart = 0;
+        int requiredChars = t.length(); 
 
-        while (end < chS.length) {
-            if (map[chS[end++]]-- > 0) {
-                count--;
+        for (int right = 0; right < s.length(); right++) {
+            char currentChar = s.charAt(right);
+
+            if (charCount.containsKey(currentChar)) {
+                if (charCount.get(currentChar) > 0) {
+                    requiredChars--; 
+                }
+                charCount.put(currentChar, charCount.get(currentChar) - 1);
             }
-            while (count == 0) {
-                if (end - start < minLen) {
-                    startIndex = start;
-                    minLen = end - start;
+
+            while (requiredChars == 0) {
+                if (right - left + 1 < minLength) {
+                    minLength = right - left + 1;
+                    minStart = left;
                 }
-                if (map[chS[start++]]++ == 0) {
-                    count++;
+
+                char leftChar = s.charAt(left);
+                if (charCount.containsKey(leftChar)) {
+                    charCount.put(leftChar, charCount.get(leftChar) + 1);
+                    if (charCount.get(leftChar) > 0) {
+                        requiredChars++; 
+                    }
                 }
+                left++;
             }
         }
 
-        return minLen == Integer.MAX_VALUE ? new String() :
-                new String(chS, startIndex, minLen);
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLength);
     }
 }
