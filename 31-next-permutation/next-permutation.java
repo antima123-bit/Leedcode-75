@@ -1,24 +1,23 @@
 class Solution {
     public void nextPermutation(int[] nums) {
         int n = nums.length;
-        int pivot = n - 2; // Start from the second-to-last element
+        int i = n - 2;
 
-        // Step 1: Find the pivot
-        while (pivot >= 0 && nums[pivot] >= nums[pivot + 1])
-            pivot--;
-
-        if (pivot >= 0) {
-            // Step 2: Find the rightmost successor
-            int successor = n - 1;
-            while (nums[successor] <= nums[pivot])
-                successor--;
-
-            // Step 3: Swap the pivot and successor
-            swap(nums, pivot, successor);
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
         }
 
-        // Step 4: Reverse the suffix
-        reverse(nums, pivot + 1, n - 1);
+        if (i >= 0) {
+            int j = n - 1;
+            while (nums[j] <= nums[i]) {
+                j--;
+            }
+            // Swap the elements
+            swap(nums, i, j);
+        }
+
+        // Reverse the suffix
+        reverse(nums, i + 1, n - 1);
     }
 
     private void swap(int[] nums, int i, int j) {
