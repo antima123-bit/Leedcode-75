@@ -1,13 +1,13 @@
-
-public class Solution {
+class Solution {
     public long countBadPairs(int[] nums) {
-        HashMap<Integer, Integer> freq = new HashMap<>();
-        long good = 0;
-        for (int i = 0; i < nums.length; i++) {
-            int key = nums[i] - i;
-            good += freq.getOrDefault(key, 0);
-            freq.put(key, freq.getOrDefault(key, 0) + 1);
+        int n = nums.length;
+        HashMap<Integer , Integer> freq = new HashMap<>();
+        long good = 0 ;
+        for(int i = 0; i< n ;i++){
+           int key = nums[i] - i;
+            good += freq.getOrDefault(key , 0);
+            freq.put(key , freq.getOrDefault(key , 0)+1 );
         }
-        return (long) nums.length * (nums.length - 1) / 2 - good;
+        return (long) n * (n-1) / 2 - good ;
     }
 }
