@@ -19,10 +19,10 @@ class ProductOfNumbers {
 
     public int getProduct(int k) {
         if (k > nums.size()) {
-            return 0;  // If k is greater than size, return 0
+            return 0;  
         }
         if (k == nums.size()) {
-            return nums.get(nums.size() - 1);  // Product of all numbers
+            return nums.get(nums.size() - 1); 
         }
         return nums.get(nums.size() - 1) / nums.get(nums.size() - k - 1); 
     }
