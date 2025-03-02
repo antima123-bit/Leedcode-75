@@ -12,7 +12,7 @@ class Solution {
         }
        int[] intersectionArray = new int[result.size()];
        int index = 0 ;
-       for(Integer num: result){
+       for(int num: result){
         intersectionArray[index++] = num;
 
        }
