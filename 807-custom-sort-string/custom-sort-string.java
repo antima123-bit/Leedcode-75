@@ -1,25 +1,31 @@
 class Solution {
     public String customSortString(String order, String s) {
-        HashMap<Character , Integer> countMap = new HashMap<>();
+        HashMap<Character , Integer> freqCount = new HashMap<>();
         for(char c: s.toCharArray()){
-            countMap.put(c , countMap.getOrDefault(c, 0)+1);
+            freqCount.put(c, freqCount.getOrDefault(c, 0)+1);
         }
-        StringBuilder result = new StringBuilder ();
+        List<Character> result = new ArrayList<>();
         for(char c: order.toCharArray()){
-        if(countMap.containsKey(c)){
-            int count  = countMap.get(c);
-            while(count-- > 0){
-                result.append(c);
-            }
-            countMap.remove(c);
-        }
-        }
-        for(char c: countMap.keySet()){
-            int count = countMap.get(c);
-            while(count-- >0){
-                result.append(c);
+            //if the character is present in string then we get the frequncy of the caharcter and if coutn is less then 0 then add to the result otherewise remove from the result 
+            if(freqCount.containsKey(c)){
+                int count = freqCount.get(c);
+                while(count-->0){
+                    result.add(c);
+                }
+                freqCount.remove(c);
             }
         }
- return result.toString();
+        for(char c: freqCount.keySet()){
+            int count = freqCount.get(c);
+            while(count-->0){
+                result.add(c);
+            }
+        }
+        StringBuilder finalresult = new StringBuilder();
+        for(char c : result){
+            finalresult.append(c);
+        }
+        return finalresult.toString();
     }
+
 }
