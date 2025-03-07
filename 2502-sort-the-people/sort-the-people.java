@@ -1,15 +1,15 @@
 class Solution {
     public String[] sortPeople(String[] names, int[] heights) {
-        List<Pair<String, Integer>> result = new ArrayList();
-        for(int i = 0 ; i<names.length ; i++){
-        result.add(new Pair<>( names[i] , heights[i]));
+        //here we do sort in treeMap because in treemap elements are arranged into the ascending order whereas the we use reverseOrder where the list become decensding order 
+        TreeMap<Integer , String> map = new TreeMap<>(Collections.reverseOrder());
+        for(int i =0 ; i< names.length; i++){
+            map.put(heights[i] ,names[i]);
         }
-        result.sort((a,b) -> b.getValue() - a.getValue());
         String[] sortedNames = new String[names.length];
-        for(int i = 0 ; i< names.length ; i++){
-           sortedNames[i] = result.get(i).getKey();
+        int index =  0 ;
+        for(String name : map.values()){
+        sortedNames[index++] = name;
+        }
+        return sortedNames;
     }
-     return sortedNames;
-    }
-   
 }
